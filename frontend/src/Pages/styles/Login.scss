@@ -1,0 +1,109 @@
+.loginPageContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 4%;
+  gap: 48px;
+  height: 60vh;
+
+  .left-section {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 18px;
+    border: 1px solid rgb(183, 202, 212);
+    border-radius: 8px;
+    gap: 80px;
+    height: fit-content;
+
+    .left-section-top {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+
+      .loginHeader {
+        font-family: Inter;
+        font-weight: 500;
+        font-size: 24px;
+        leading-trim: NONE;
+        line-height: 32px;
+        letter-spacing: 0%;
+        color: #B13BFF;
+      }
+
+      .loginInputs {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        width: 100%;
+
+        input {
+          border-radius: 8px;
+          background-color: #090040;
+          border: none;
+          padding: 8px 12px;
+          color: #ffffff;
+        }
+
+        .forgotPassword {
+          font-family: Inter;
+          font-weight: 400;
+          font-size: 14px;
+          leading-trim: NONE;
+          line-height: 20px;
+          letter-spacing: 0%;
+          color: #F2F4F7;
+          text-decoration: none;
+          text-align: end;
+          cursor: pointer;
+        }
+
+        .forgotPassword:hover {
+          color: #B13BFF;
+        }
+      }
+    }
+
+    .left-section-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .loginButton {
+        background-color: #B13BFF;
+        color: #090040;
+        border: none;
+        border-radius: 8px;
+        height: 44px;
+
+        font-weight: 600;
+        font-size: 18px;
+        leading-trim: NONE;
+        line-height: 24px;
+        letter-spacing: 0%;
+      }
+
+      .signUpButton {
+        font-family: Inter;
+        font-weight: 400;
+        font-size: 14px;
+        leading-trim: NONE;
+        line-height: 20px;
+        letter-spacing: 0%;
+        color: #F2F4F7;
+        text-decoration: none;
+        text-align: end;
+        cursor: pointer;
+
+        span {
+          color: #B13BFF;
+        }
+      }
+    }
+  }
+
+  .right-section {
+    img {
+      height: 100%;
+    }
+  }
+}

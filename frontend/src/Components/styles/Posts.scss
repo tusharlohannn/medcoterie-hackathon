@@ -1,0 +1,32 @@
+.postsContainer {
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  padding-top: 20px;
+
+  .askQuestionButton {
+    position: absolute;
+    background-color: #B13BFF;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    right: 14px;
+    top: 86%;
+    padding: 8px 12px;
+    cursor: pointer;
+
+    p {
+      margin: 0;
+      color: #ffffff;
+    }
+  }
+
+  .askQuestionButton:hover {
+    transform: scale(1.04);
+    transition: 0.25s;
+  }
+}
