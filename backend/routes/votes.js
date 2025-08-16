@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
     let ownerId;
     if (target_type === "question") {
       const q = await pool.query(
-        `SELECT user_id FROM questions WHERE id = $1`,
+        `SELECT user_id FROM user_questions WHERE id = $1`,
         [target_id]
       );
       ownerId = q.rows[0]?.user_id;
@@ -36,10 +36,18 @@ router.post("/", async (req, res) => {
     // 3️⃣ Create a notification if user is not voting their own post
     if (ownerId && ownerId !== user_id) {
       const action = vote_type === 1 ? "upvoted" : "downvoted";
+
+      // Get username of voter for better message
+      const userRes = await pool.query(
+        "SELECT username FROM users WHERE id = $1",
+        [user_id]
+      );
+      const username = userRes.rows[0]?.username || "Someone";
+
       await pool.query(
         `INSERT INTO notifications (user_id, message, type, read, created_at)
-         VALUES ($1, $2, $3, false, NOW())`,
-        [ownerId, `User ${user_id} ${action} your ${target_type}.`, 'vote']
+         VALUES ($1, $2, 'vote', false, NOW())`,
+        [ownerId, `${username} ${action} your ${target_type}.`]
       );
     }
 

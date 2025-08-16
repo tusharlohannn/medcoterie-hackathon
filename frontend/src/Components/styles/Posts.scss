@@ -7,9 +7,10 @@
   gap: 14px;
   position: relative;
   padding-top: 20px;
+  padding-top: 100px;
 
   .askQuestionButton {
-    position: absolute;
+    position: fixed;
     background-color: #B13BFF;
     border-radius: 12px;
     display: flex;

@@ -2,8 +2,11 @@
   display: flex;
   background-color: rgb(14, 17, 19);
   justify-content: space-between;
+  width: 100%;
   padding: 14px 24px;
+  z-index: 9;
   border-bottom: 1px solid rgb(183, 202, 212);
+  position: fixed;
 
   .header-left-section {
     .header-logo {
