@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
   const { baseUrl } = useGlobalState();
-  const [mode, setMode] = useState("login"); // "login" | "register"
+  const [mode, setMode] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
@@ -51,7 +51,7 @@ function Login() {
       });
 
       console.log("Registered successfully!", response?.data);
-      setMode("login"); // switch back to login after registration
+      setMode("login");
     } catch (err) {
       setError(err.response?.data?.error || "Registration failed");
     } finally {

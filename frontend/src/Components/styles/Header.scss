@@ -29,32 +29,45 @@
       border-radius: 50%;
       height: 36px;
       cursor: pointer;
+      position: relative;
 
       svg {
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 4px;
+        border-radius: 50%;
+      }
+
+      svg:hover {
+        background-color: rgba(131, 129, 129, 0.259);
+        transition: 0.25s;
       }
 
       .notification-dropdown {
         position: absolute;
-        top: 40px;
+        top: 38px;
         right: 0;
         width: 300px;
         max-height: 400px;
         overflow-y: auto;
-        background: #fff;
-        border: 1px solid #eee;
+        overflow-x: hidden;
+        background-color: rgb(14, 17, 19);
+        border: 1px solid #B13BFF;
         border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgb(142, 141, 141);
         z-index: 100;
         padding: 10px;
       }
 
       .notification-item {
         padding: 8px;
-        border-bottom: 1px solid #f0f0f0;
+        text-wrap: nowrap;
+
+        p {
+          margin: 0;
+          color: #ffffff;
+        }
       }
 
       .notification-item.unread {
@@ -72,34 +85,32 @@
       }
     }
 
-    .wrapper:hover {
-      background-color: rgba(131, 129, 129, 0.259);
-      transition: 0.25s;
-    }
-
     .profile {
       position: relative;
 
       .profile-dropdown {
         position: absolute;
-        background-color: green;
+        background-color: rgb(14, 17, 19);
         border-radius: 8px;
         display: flex;
         flex-direction: column;
-        width: 140px;
+        border: 1px solid #B13BFF;
+        box-shadow: 0 4px 8px rgb(142, 141, 141);
+        width: 180px;
         right: 0;
+        top: 38px;
         padding: 12px 8px;
 
         p {
-          color: red;
+          color: #ffffff;
           padding: 4px 8px;
           margin: 0;
           border-radius: 8px;
         }
 
         p:hover {
-          background-color: red;
-          color: white;
+          background-color: rgba(131, 129, 129, 0.259);
+          color: #ffffff;
         }
       }
     }

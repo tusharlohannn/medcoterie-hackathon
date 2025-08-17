@@ -1,13 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./styles/Header.scss";
 import { useGlobalState } from "../GlobalStateContext";
+import { useNavigate } from "react-router-dom";
 
 function Header({ isLoggedIn }) {
   const { baseUrl } = useGlobalState();
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const profileRef = useRef(null);
+  const notificationsRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -36,11 +40,44 @@ function Header({ isLoggedIn }) {
   }
 
   function handleNotificationClick() {
-    setShowNotifications(!showNotifications);
-    if (!showNotifications) {
-      markAllAsRead();
-    }
+    setShowProfileDropdown(false);
+    setShowNotifications((prev) => {
+      const newState = !prev;
+      if (newState) {
+        markAllAsRead();
+      }
+      return newState;
+    });
   }
+
+  function handleProfileClick() {
+    setShowNotifications(false);
+    setShowProfileDropdown((prev) => !prev);
+  }
+
+  function handleLogout() {
+    localStorage.clear();
+    navigate("/login");
+  }
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target) &&
+        notificationsRef.current &&
+        !notificationsRef.current.contains(event.target)
+      ) {
+        setShowProfileDropdown(false);
+        setShowNotifications(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
@@ -50,8 +87,8 @@ function Header({ isLoggedIn }) {
         <p className="header-logo">MedCoterie</p>
       </div>
       <div className="header-right-section" style={{ display: isLoggedIn ? "flex" : "none" }}>
-        <div className="notifications wrapper" onClick={handleNotificationClick}>
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div className="notifications wrapper" onClick={handleNotificationClick} ref={notificationsRef}>
+          <svg className="notification-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="style=stroke">
               <g id="notification-bell-new">
                 <path id="vector (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M8.73682 18.8301C9.15103 18.8301 9.48682 19.1659 9.48682 19.5801C9.48682 19.7533 9.53068 19.9323 9.62567 20.1089C9.72135 20.2868 9.86934 20.4625 10.073 20.6194C10.2768 20.7763 10.5283 20.9079 10.8164 20.9998C11.1044 21.0917 11.4174 21.1402 11.7364 21.1402C12.0554 21.1402 12.3684 21.0917 12.6563 20.9998C12.9445 20.9079 13.196 20.7763 13.3998 20.6194C13.6034 20.4625 13.7514 20.2868 13.8471 20.1089C13.9421 19.9323 13.986 19.7533 13.986 19.5801C13.986 19.1659 14.3218 18.8301 14.736 18.8301C15.1502 18.8301 15.486 19.1659 15.486 19.5801C15.486 20.0136 15.3747 20.4354 15.1682 20.8194C14.9624 21.202 14.6685 21.5356 14.315 21.8078C13.9618 22.0799 13.5519 22.2886 13.1122 22.4289C12.6723 22.5692 12.2052 22.6402 11.7364 22.6402C11.2676 22.6402 10.8005 22.5692 10.3606 22.4289C9.92086 22.2886 9.51101 22.0799 9.15774 21.8078C8.80433 21.5356 8.51043 21.202 8.30462 20.8194C8.09812 20.4354 7.98682 20.0136 7.98682 19.5801C7.98682 19.1659 8.3226 18.8301 8.73682 18.8301Z" fill="#B13BFF" />
@@ -71,8 +108,9 @@ function Header({ isLoggedIn }) {
                     key={n.id}
                     className={`notification-item ${n.read ? "read" : "unread"
                       }`}
+                    title={n.message}
                   >
-                    <p>{n.message}</p>
+                    <p>{n.message.length > 28 ? n.message.slice(0, 28) + "..." : n.message}</p>
                     <span className="time">
                       {new Date(n.created_at).toLocaleString()}
                     </span>
@@ -83,14 +121,18 @@ function Header({ isLoggedIn }) {
           )}
         </div>
 
-        <div className="profile wrapper" onClick={() => setShowProfileDropdown(!showProfileDropdown)}>
+        <div
+          className="profile wrapper"
+          onClick={handleProfileClick}
+          ref={profileRef}
+        >
           <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 7C9.65685 7 11 5.65685 11 4C11 2.34315 9.65685 1 8 1C6.34315 1 5 2.34315 5 4C5 5.65685 6.34315 7 8 7Z" fill="#B13BFF" />
             <path d="M14 12C14 10.3431 12.6569 9 11 9H5C3.34315 9 2 10.3431 2 12V15H14V12Z" fill="#B13BFF" />
           </svg>
           <div className="profile-dropdown" style={{ display: showProfileDropdown ? "flex" : "none" }}>
             <p>My Profile</p>
-            <p>Logout</p>
+            <p onClick={handleLogout}>Logout</p>
           </div>
         </div>
       </div>

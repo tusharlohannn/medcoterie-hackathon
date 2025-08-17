@@ -3,14 +3,13 @@ import axios from "axios";
 import "./styles/AddQuestionPopup.scss";
 import { useGlobalState } from "../GlobalStateContext";
 
-function AddQuestionPopup({ showAddQuestionPopup, setShowAddQuestionPopup }) {
+function AddQuestionPopup({ showAddQuestionPopup, setShowAddQuestionPopup, onQuestionAdded }) {
   const { baseUrl } = useGlobalState();
   const [question, setQuestion] = useState("");
   const [description, setDescription] = useState("");
 
   const handlePostQuestion = async () => {
     try {
-      // get user data from localStorage
       const user_id = localStorage.getItem("user_id");
       const username = localStorage.getItem("username");
       const email = localStorage.getItem("user_email");
@@ -24,14 +23,13 @@ function AddQuestionPopup({ showAddQuestionPopup, setShowAddQuestionPopup }) {
       });
 
       if (response.status === 200) {
-        alert("Question posted successfully!");
         setShowAddQuestionPopup(false);
         setQuestion("");
         setDescription("");
+        onQuestionAdded();
       }
     } catch (error) {
       console.error(error);
-      alert("Failed to post question.");
     }
   };
 

@@ -9,6 +9,31 @@
   padding-top: 20px;
   padding-top: 100px;
 
+  .controls {
+    width: 68%;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+
+    .searchInput,
+    .filterDropdown {
+      border-radius: 8px;
+      border: 1px solid #B13BFF;
+      color: #ffffff;
+      padding: 4px 8px;
+      background-color: rgb(14, 17, 19);
+
+      option {
+        border: 8px;
+      }
+    }
+
+    .searchInput:focus,
+    .filterDropdown:focus {
+      outline: none;
+    }
+  }
+
   .askQuestionButton {
     position: fixed;
     background-color: #B13BFF;
