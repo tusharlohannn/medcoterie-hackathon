@@ -6,9 +6,9 @@ Tech Stack Used:
 2. NodeJS + Express (for backend)
 3. Postgres (for database)
 4. Frontend Deployment (Used Vercel to deploy the frontend code with a free account)
-5. Backend and Database Deployment (User Render to deploy the backend(node) and database(postgres) with a free account)
+5. Backend and Database Deployment (Used Render to deploy the backend(node) and database(postgres) with a free account)
 
-Features implemented:
+## Features implemented:
 - Authentication (login/logout with JWT)
 - User Home with questions feed
 - Search & Filter (by title, description, and username)
@@ -18,7 +18,7 @@ Features implemented:
 - Sorting posts(questions) based on uploaded time
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
-Local Setup Guide:
+## Local Setup Guide:
 1. First pull the latest frontend and backend code from this repository(main branch).
 2. Then open the backend folder in your terminal and run this command "npm i".
 3. Now create a postgres Database. You can use the schema file attached in the root folder to create the tables in your local db.
