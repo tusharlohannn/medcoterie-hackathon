@@ -74,7 +74,7 @@ function Posts() {
         />
       ))}
 
-      <div className="askQuestionButton">
+      <div className="askQuestionButton" onClick={() => setShowAddQuestionPopup(true)}>
         <svg
           width="40px"
           height="40px"
@@ -103,7 +103,7 @@ function Posts() {
             fill="#333333"
           />
         </svg>
-        <p onClick={() => setShowAddQuestionPopup(true)}>Post a Question</p>
+        <p>Post a Question</p>
       </div>
 
       <AddQuestionPopup
