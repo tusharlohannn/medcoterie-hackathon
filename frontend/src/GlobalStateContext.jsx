@@ -4,7 +4,8 @@ const GlobalStateContext = createContext();
 export const GlobalStateProvider = ({ children }) => {
   const initialState = {
     userName: "",
-    baseUrl: "http://localhost:5000"
+    // baseUrl: "http://localhost:5000"
+    baseUrl: "https://medcoterie-hackathon.onrender.com"
   }
 
   const [userName, setUserName] = useState(initialState.userName);
