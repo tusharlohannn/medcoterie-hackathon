@@ -1,9 +1,9 @@
 .loginPageContainer {
   display: flex;
   justify-content: center;
-  margin-top: 4%;
+  padding-top: 120px;
   gap: 48px;
-  height: 60vh;
+  height: 100vh;
 
   .left-section {
     width: 30%;
@@ -102,6 +102,8 @@
   }
 
   .right-section {
+    max-height: 66vh;
+
     img {
       height: 100%;
     }

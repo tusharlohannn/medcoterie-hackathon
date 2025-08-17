@@ -9,34 +9,68 @@ function Posts() {
   const { baseUrl } = useGlobalState();
   const [showAddQuestionPopup, setShowAddQuestionPopup] = useState(false);
   const [questions, setQuestions] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filter, setFilter] = useState("newest");
+
+  const fetchQuestions = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/api/questions`);
+      setQuestions(response.data);
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}/api/questions`);
-
-        setQuestions(response.data); // assuming backend returns an array
-      } catch (error) {
-        console.error("Error fetching questions:", error);
-      }
-    };
-
     fetchQuestions();
   }, [baseUrl]);
 
-  useEffect(() => {
-    console.log(questions[0]?.id);
-  }, [questions])
+  // 🔹 Derived state: filter + search
+  const filteredQuestions = questions
+    .filter((q) => {
+      const term = searchTerm.toLowerCase();
+      return (
+        q.title.toLowerCase().includes(term) ||
+        q.description.toLowerCase().includes(term) ||
+        (q.username && q.username.toLowerCase().includes(term))
+      );
+    })
+    .sort((a, b) => {
+      if (filter === "newest") {
+        return new Date(b.created_at) - new Date(a.created_at);
+      } else if (filter === "oldest") {
+        return new Date(a.created_at) - new Date(b.created_at);
+      }
+      return 0;
+    });
 
   return (
     <div className="postsContainer">
-      {questions.map((q) => (
+      <div className="controls">
+        <input
+          type="text"
+          placeholder="Search questions..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="searchInput"
+        />
+        <select
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          className="filterDropdown"
+        >
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+        </select>
+      </div>
+
+      {filteredQuestions.map((q) => (
         <QuestionCard
-          key={q.id}                // 🔹 React’s internal key (won’t reach component)
-          id={q.id}                 // 🔹 Explicit prop that will be available inside QuestionCard
+          key={q.id}
+          id={q.id}
           title={q.title}
           description={q.description}
-          username={q.username || "Anonymous"} // fallback if not stored yet
+          username={q.username || "Anonymous"}
           created_at={q.created_at}
         />
       ))}
@@ -76,6 +110,7 @@ function Posts() {
       <AddQuestionPopup
         showAddQuestionPopup={showAddQuestionPopup}
         setShowAddQuestionPopup={setShowAddQuestionPopup}
+        onQuestionAdded={fetchQuestions}
       />
     </div>
   );
