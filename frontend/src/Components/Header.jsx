@@ -40,7 +40,7 @@ function Header({ isLoggedIn }) {
   }
 
   function handleNotificationClick() {
-    setShowProfileDropdown(false); // always close profile when notifications open
+    setShowProfileDropdown(false);
     setShowNotifications((prev) => {
       const newState = !prev;
       if (newState) {
@@ -51,13 +51,13 @@ function Header({ isLoggedIn }) {
   }
 
   function handleProfileClick() {
-    setShowNotifications(false); // always close notifications when profile opens
+    setShowNotifications(false);
     setShowProfileDropdown((prev) => !prev);
   }
 
   function handleLogout() {
-    localStorage.clear(); // ⬅️ clear all localStorage
-    navigate("/login");   // ⬅️ redirect to login
+    localStorage.clear();
+    navigate("/login");
   }
 
   useEffect(() => {

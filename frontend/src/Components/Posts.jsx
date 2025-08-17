@@ -25,7 +25,6 @@ function Posts() {
     fetchQuestions();
   }, [baseUrl]);
 
-  // 🔹 Derived state: filter + search
   const filteredQuestions = questions
     .filter((q) => {
       const term = searchTerm.toLowerCase();

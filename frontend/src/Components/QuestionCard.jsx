@@ -39,7 +39,6 @@ function QuestionCard({ id, title, description, username, created_at }) {
       .catch((err) => console.error(err));
   }, [id]);
 
-  // Handle new answer submit
   async function handleAnswerSubmit() {
     if (!newAnswer.trim()) return;
 
@@ -64,7 +63,6 @@ function QuestionCard({ id, title, description, username, created_at }) {
     }
   }
 
-  // Handle question voting
   async function handleQuestionVote(type) {
     try {
       const res = await fetch(`${baseUrl}/api/votes`, {
@@ -88,7 +86,6 @@ function QuestionCard({ id, title, description, username, created_at }) {
     }
   }
 
-  // Handle answer voting
   async function handleAnswerVote(answerId, type) {
     try {
       const res = await fetch(`${baseUrl}/api/votes`, {
@@ -117,7 +114,6 @@ function QuestionCard({ id, title, description, username, created_at }) {
     }
   }
 
-  // Reusable Hoverable SVG button
   const HoverableButton = ({ onClick, svgPath, size = 24, hoverColor = voteHover }) => {
     const [hover, setHover] = useState(false);
     return (
@@ -143,7 +139,6 @@ function QuestionCard({ id, title, description, username, created_at }) {
 
   return (
     <div className="questionCardContainer">
-      {/* Top Section */}
       <div className="middle-section">
         <p className="userName">{username}</p> <span style={{ color: "rgb(183, 202, 212)" }}>•</span>
         <p className="postedAt">{formatDate(created_at)}</p>
@@ -154,10 +149,6 @@ function QuestionCard({ id, title, description, username, created_at }) {
         <p className="questionDescription">{description}</p>
       </div>
 
-      {/* Middle Section */}
-
-
-      {/* Voting for Question */}
       <div className="postActions">
         <div className="question-votes">
           <HoverableButton
@@ -168,7 +159,7 @@ function QuestionCard({ id, title, description, username, created_at }) {
           <HoverableButton
             onClick={() => handleQuestionVote("down")}
             svgPath="M10 1c.072 0 .145 0 .218.006A4.1 4.1 0 0 1 14 5.184V9h3.138a1.751 1.751 0 0 1 1.234 2.993L10.59 19.72a.836.836 0 0 1-1.18 0l-7.782-7.727A1.751 1.751 0 0 1 2.861 9H6V5.118a4.134 4.134 0 0 1 .854-2.592A3.99 3.99 0 0 1 10 1Zm0 17.193 7.315-7.264a.251.251 0 0 0-.177-.429H12.5V5.184A2.631 2.631 0 0 0 10.136 2.5a2.441 2.441 0 0 0-1.856.682A2.478 2.478 0 0 0 7.5 5v5.5H2.861a.251.251 0 0 0-.176.429L10 18.193Z"
-            hoverColor={downvoteHover} // 🔴 apply red hover
+            hoverColor={downvoteHover}
           />
         </div>
 
@@ -194,7 +185,6 @@ function QuestionCard({ id, title, description, username, created_at }) {
               Submit
             </button>
           </div>
-          {/* Answers list */}
           <div className="answers-section">
             {answers.length > 0 ? (
               answers.map((a) => (
@@ -215,7 +205,7 @@ function QuestionCard({ id, title, description, username, created_at }) {
                       onClick={() => handleAnswerVote(a.id, "down")}
                       svgPath="M10 1c.072 0 .145 0 .218.006A4.1 4.1 0 0 1 14 5.184V9h3.138a1.751 1.751 0 0 1 1.234 2.993L10.59 19.72a.836.836 0 0 1-1.18 0l-7.782-7.727A1.751 1.751 0 0 1 2.861 9H6V5.118a4.134 4.134 0 0 1 .854-2.592A3.99 3.99 0 0 1 10 1Zm0 17.193 7.315-7.264a.251.251 0 0 0-.177-.429H12.5V5.184A2.631 2.631 0 0 0 10.136 2.5a2.441 2.441 0 0 0-1.856.682A2.478 2.478 0 0 0 7.5 5v5.5H2.861a.251.251 0 0 0-.176.429L10 18.193Z"
                       size={28}
-                      hoverColor={downvoteHover} // 🔴 red downvote hover
+                      hoverColor={downvoteHover}
                     />
                   </div>
                 </div>
