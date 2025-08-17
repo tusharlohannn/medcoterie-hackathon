@@ -43,4 +43,5 @@ Local Setup Guide:
 - External Database Url: postgresql://medcoterirdb_user:VJd05ozK36VQoVYTN9SmTgDZE6ZZyyke@dpg-d2gnj9ruibrs73eh6kfg-a.singapore-postgres.render.com/medcoterirdb
 
 ## Note
-The Deployment links might be a little slow to respond, because I'm using a free account and both Vercel and Render temporarily sleep the servers when they are not being used.
+1. The Deployment links might be a little slow to respond, because I'm using a free account and both Vercel and Render temporarily sleep the servers when they are not being used.
+2. Reloading the page on the deployed servers leads to issues because of certain limitations of the free account.
