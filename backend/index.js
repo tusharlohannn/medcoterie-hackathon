@@ -7,6 +7,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get("/", (req, res) => {
+  res.send("Backend is running ✅");
+});
+
 // Routes
 app.use("/api/users", require("./routes/users"));
 app.use("/api/questions", require("./routes/questions"));
