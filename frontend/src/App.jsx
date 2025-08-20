@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import UserHome from "./Pages/UserHome";
-import { Analytics } from "@vercel/analytics/next";
 import { GlobalStateProvider } from "./GlobalStateContext";
 import Login from "./Pages/Login";
 
@@ -21,7 +20,6 @@ const App = () => {
           <Route path="/Home" element={<UserHome />} />
         </Routes>
       </Router>
-      <Analytics />
     </GlobalStateProvider>
   );
 };
